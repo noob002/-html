@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>퍼즐 탈출 게임</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #2c3e50;
+            color: white;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(5, 80px);
+            grid-gap: 10px;
+        }
+        .button {
+            width: 80px;
+            height: 40px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .button:hover {
+            transform: scale(1.1);
+        }
+        #celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0) 20%, rgba(255,215,0,0.8) 80%);
+            pointer-events: none;
+            display: none;
+            animation: explosion 1s forwards;
+        }
+        @keyframes explosion {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.5);
+            }
+        }
+        #message {
+            font-size: 2em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔒 탈출 퍼즐 🔒</h1>
+    <p>아래 버튼 중에서 탈출 버튼을 찾아 누르세요!</p>
+    <div class="grid">
+        <!-- 무작위 버튼 -->
+        <button class="button">클릭</button>
+        <button class="button">아님</button>
+        <button class="button">여기도 아님</button>
+        <button class="button">헛!</button>
+        <button class="button">꽝</button>
+        <button class="button">땡</button>
+        <button class="button">오우</button>
+        <button class="button">탈출</button> <!-- 탈출 버튼 -->
+        <button class="button">뭐지</button>
+        <button class="button">NO</button>
+    </div>
+
+    <!-- 축하 애니메이션 -->
+    <div id="celebration"></div>
+    <div id="message"></div>
+
+    <script>
+        // 탈출 버튼 찾기
+        const buttons = document.querySelectorAll('.button');
+        const celebration = document.getElementById('celebration');
+        const message = document.getElementById('message');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                if (button.textContent === '탈출') {
+                    celebration.style.display = 'block';
+                    message.textContent = '🎉 축하합니다! 탈출에 성공했습니다! 🎉';
+                    setTimeout(() => {
+                        celebration.style.display = 'none';
+                        message.textContent = '';
+                    }, 1500);
+                } else {
+                    alert('틀렸습니다! 다시 시도하세요!');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
